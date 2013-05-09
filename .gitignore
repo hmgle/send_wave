@@ -1,4 +1,6 @@
 *.o
+*.d
 *.token
 *.bak
 *.tmp
+test_base64
