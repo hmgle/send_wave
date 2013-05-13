@@ -124,6 +124,7 @@ uint8_t *base64_decode(const uint8_t *src, size_t src_len, uint8_t *dst, size_t 
 
 		dst[index++] = (in[0] << 2) | (in[1] >> 4);
 	}
+	dst[index] = '\0';
 	return dst;
 }
 
