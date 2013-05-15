@@ -128,12 +128,46 @@ uint8_t *base64_decode(const uint8_t *src, size_t src_len, uint8_t *dst, size_t 
 	return dst;
 }
 
-char *urlencode(const char *src, size_t src_len, char *dst, size_t *dst_len)
+uint8_t *urlencode(const uint8_t *src, uint8_t *dst)
 {
+	uint8_t *psrc = (uint8_t *)src;
+	uint8_t *pdst = dst;
+
+	while (*psrc) {
+		if ( isalnum(*psrc) || *psrc == '-'
+		    || *psrc == '_' || *psrc == '.'
+		    || *psrc == '~')
+			*pdst++ = *psrc;
+		else if (*psrc == ' ')
+			*pdst++ = '+';
+		else {
+			*pdst++ = '%';
+			*pdst++ = to_hex(*psrc >> 4);
+			*pdst++ = to_hex(*psrc & 0xf);
+		}
+		psrc++;
+	}
+	pdst = '\0';
 	return dst;
 }
 
 char *urldecode(const char *src, size_t src_len, char *dst, size_t *dst_len)
 {
+	uint8_t *psrc = (uint8_t *)src;
+	uint8_t *pdst = dst;
+
+	while (*psrc) {
+		if (*psrc == '%') {
+			if (psrc[1] && psrc[2]) {
+				*pdst++ = from_hex(psrc[1] << 4 | from_hex(psrc[2]));
+				psrc += 3;
+			}
+		} else if (*psrc == '+') {
+			*pdst++ = ' ';
+			psrc++;
+		} else
+			*pdst++ = *psrc++;
+	}
+	*pdst = '\0';
 	return dst;
 }
