@@ -1,4 +1,6 @@
+#include <ctype.h>
 #include "auth.h"
+#include "debug_log.h"
 
 static const uint8_t encoding_table[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 static const uint8_t decoding_table[] = {
@@ -30,20 +32,30 @@ static const uint8_t decoding_table[] = {
   0,   0,   0,   0,   0,   0,
 };
 
+static uint8_t HEX[] = "0123456789abcdef";
+
+static uint8_t to_hex(uint8_t code)
+{
+	return HEX[code & 0xf];
+}
+
+static uint8_t from_hex(uint8_t ch)
+{
+	return isdigit(ch) ? ch - '0' : tolower(ch) - 'a' + 10;
+}
+
 size_t base64_encode_len(size_t src_len)
 {
 	return 4 * ((src_len + 2) / 3);
 }
 
-uint8_t *base64_encode(const uint8_t *src, size_t src_len, uint8_t *dst, size_t *dst_len)
+uint8_t *base64_encode(const uint8_t *src, size_t src_len, uint8_t *dst)
 {
 	uint8_t in[3];
 	uint8_t *po = dst;
 	uint32_t triple;
 	size_t i;
 
-	*dst_len = 4 * ((src_len + 2) / 3);
-	fprintf(stderr, "dst_len is %d\n", *dst_len);
 	for (i = 0; i + 2 < src_len; i += 3) {
 		in[0] = src[i];
 		in[1] = src[i + 1];
@@ -66,7 +78,6 @@ uint8_t *base64_encode(const uint8_t *src, size_t src_len, uint8_t *dst, size_t 
 		*po++ = encoding_table[(triple >> 1 * 6) & 0x3f];
 		*po++ = '=';
 	}
-	// *(dst + *dst_len) = '\0';
 	*po = '\0';
 	return dst;
 }
@@ -86,7 +97,7 @@ size_t base64_decode_len(const uint8_t *src, size_t src_len)
 	return dst_len;
 }
 
-uint8_t *base64_decode(const uint8_t *src, size_t src_len, uint8_t *dst, size_t *dst_len)
+uint8_t *base64_decode(const uint8_t *src, size_t src_len, uint8_t *dst)
 {
 	uint8_t in[4];
 	int pad = 0;
@@ -99,7 +110,6 @@ uint8_t *base64_decode(const uint8_t *src, size_t src_len, uint8_t *dst, size_t 
 			pad++;
 		}
 	}
-	*dst_len = src_len * 3 / 4 - pad;
 	int index = 0;
 	for (i = 0; i <= src_len - 4 - pad; i += 4) {
 		in[0] = decoding_table[psrc[i + 0]];
@@ -151,7 +161,7 @@ uint8_t *urlencode(const uint8_t *src, uint8_t *dst)
 	return dst;
 }
 
-char *urldecode(const char *src, size_t src_len, char *dst, size_t *dst_len)
+uint8_t *urldecode(const uint8_t *src, uint8_t *dst)
 {
 	uint8_t *psrc = (uint8_t *)src;
 	uint8_t *pdst = dst;

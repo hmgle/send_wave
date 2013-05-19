@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS += -Wall -DDEBUG=1
+CFLAGS += -Wall -DDEBUG=1 -g
 
 SRCDIR = src
 SRC := $(wildcard $(SRCDIR)/*.c)
