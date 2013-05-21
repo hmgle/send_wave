@@ -1,3 +1,5 @@
+#include <stdlib.h>
+#include <time.h>
 #include <ctype.h>
 #include "auth.h"
 #include "debug_log.h"
@@ -180,4 +182,15 @@ uint8_t *urldecode(const uint8_t *src, uint8_t *dst)
 	}
 	*pdst = '\0';
 	return dst;
+}
+
+uint8_t *oauth_nonce(uint8_t *str, size_t len)
+{
+	size_t i;
+
+	srand((unsigned int)time(NULL));
+	for (i = 0; i < len; i++)
+		str[i] = rand() % 10 + '0';
+	str[len] = '\0';
+	return str;
 }
