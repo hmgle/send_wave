@@ -3,5 +3,6 @@
 *.token
 *.bak
 *.tmp
+config.py
 test_base64
 tags

@@ -1,0 +1,6 @@
+# -*- coding: utf-8 -*-
+
+consumer_key = ''
+client_secret = ''
+resource_owner_key = ''
+resource_owner_secret = ''
