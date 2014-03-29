@@ -4,5 +4,6 @@
 *.bak
 *.tmp
 config.py
+src/xauth.py
 test_base64
 tags
