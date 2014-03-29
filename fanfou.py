@@ -5,10 +5,6 @@ from requests_oauthlib import OAuth1Session
 
 class Fanfou(OAuth1Session):
     def __init__(self, api_key, api_secret, oauth_token, oauth_token_secret):
-        self.api_key = api_key
-        self.api_secret = api_secret
-        self.oauth_token = oauth_token
-        self.oauth_token_secret = oauth_token_secret
         self.prefixurl = "http://api.fanfou.com/"
         self.msg_url = self.prefixurl + "statuses/update.json"
         self.photo_url = self.prefixurl + "photos/upload.json"
