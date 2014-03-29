@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import requests
 from requests_oauthlib import OAuth1Session
+
 
 class Fanfou(OAuth1Session):
     def __init__(self, api_key, api_secret, oauth_token, oauth_token_secret):
@@ -15,9 +17,14 @@ class Fanfou(OAuth1Session):
     def post_msg(self, msg):
         payload = {'status': msg}
         ret = self.post(self.msg_url, data=payload)
-        return ret.status_code
+        if ret.status_code != 200:
+            print(ret.content)
+        return ret
 
     def post_photo(self, photo_data, desc=None):
         files = {'photo': photo_data}
         extra = {'status': desc}
-        return self.post(self.photo_url, files=files, data=extra).status_code
+        ret = self.post(self.photo_url, files=files, data=extra)
+        if ret.status_code != 200:
+            print(ret.content)
+        return ret

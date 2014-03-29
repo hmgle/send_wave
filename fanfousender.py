@@ -2,20 +2,17 @@
 # -*- coding: utf-8 -*-
 
 import fileinput
-from requests_oauthlib import OAuth1Session
+from fanfou import Fanfou
 from config import consumer_key, client_secret
 from config import resource_owner_key, resource_owner_secret
 
-postmsgurl = 'http://api.fanfou.com/statuses/update.json'
-fanfou = OAuth1Session(consumer_key,
-                       client_secret=client_secret,
-                       resource_owner_key=resource_owner_key,
-                       resource_owner_secret=resource_owner_secret)
-msg = ''
-for line in fileinput.input():
-    msg += line
+if __name__ == "__main__":
+    msg = ''
+    for line in fileinput.input():
+        msg += line
 
-payload = {'status': msg}
-
-r = fanfou.post(postmsgurl, data=payload)
-print r.status_code
+    fanfou = Fanfou(api_key=consumer_key,
+               api_secret=client_secret,
+               oauth_token=resource_owner_key,
+               oauth_token_secret=resource_owner_secret)
+    fanfou.post_msg(msg)
