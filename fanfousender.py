@@ -15,4 +15,15 @@ if __name__ == "__main__":
                api_secret=client_secret,
                oauth_token=resource_owner_key,
                oauth_token_secret=resource_owner_secret)
-    fanfou.post_msg(msg)
+    msglen = len(unicode(msg, 'utf-8'))
+    if  msglen < 140:
+        fanfou.post_msg(msg)
+    else:
+        msgs = [msg.decode('utf8')[i:i+132].encode('utf8')
+                for i in range(0, msglen, 132)]
+        for m in msgs:
+            if m is msgs[0]:
+                m = m + '(未完)'
+            else:
+                m = '接上条: ' + m
+            fanfou.post_msg(m)
