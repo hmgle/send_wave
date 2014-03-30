@@ -8,17 +8,26 @@ import sys
 import getopt
 
 def main():
-    short_opts = 's:'
-    opts = ['desc=']
+    help = 'Usage: %s [option]' % sys.argv[0]
+    help += '''\noption:
+    -h | --help                                 display this information
+    -s | --desc "photo description"             discription the photo
+    '''
+    short_opts = 'hs:'
+    opts = ['help', 'desc=']
     try:
         opts, args = getopt.getopt(sys.argv[1:], short_opts, opts)
     except getopt.GetoptError as err:
         print(err)
+        print(help)
         sys.exit(1)
 
     desc = None
     for opt, arg in opts:
-        if opt in ('-s', '--desc'):
+        if opt in ('-h', '--help'):
+            print(help)
+            sys.exit()
+        elif opt in ('-s', '--desc'):
             desc = arg
         else:
             print(help)
