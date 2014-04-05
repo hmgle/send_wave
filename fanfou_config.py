@@ -1,16 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-try:
-    from config import consumer_key, client_secret
-except ImportError:
-    print "需要在 config.py 填写 consumer_key 及 client_secret"
-    exit(1)
-
 import requests
 from requests_oauthlib import OAuth1
 from urlparse import parse_qs
 import getpass
+import ConfigParser
 
 
 def xauth(consumer_key, client_secret, username, password):
@@ -24,10 +19,34 @@ def xauth(consumer_key, client_secret, username, password):
     credentials = parse_qs(r.content)
     oauth_token = credentials.get('oauth_token')[0]
     oauth_secret = credentials.get('oauth_token_secret')[0]
-    print "token: " + oauth_token
-    print "secret: " + oauth_secret
+    return {"oauth_token": oauth_token, "oauth_secret": oauth_secret}
 
 if __name__ == '__main__':
-    username = raw_input("Username: ")
-    password = getpass.getpass("Password: ")
-    xauth(consumer_key, client_secret, username, password)
+    config = ConfigParser.ConfigParser()
+    with open('config.cfg', 'r') as cfgfile:
+        config.readfp(cfgfile)
+        try:
+            consumer_key = config.get('fanfou', 'consumer_key')
+            client_secret = config.get('fanfou', 'client_secret')
+        except ConfigParser.NoOptionError, err:
+            print "需在config.cfg填写consumer_key和client_secret"
+            exit(1)
+        if not consumer_key or not client_secret:
+            print "需在config.cfg填写consumer_key和client_secret"
+            exit(1)
+        try:
+            resource_owner_key = config.get('fanfou', 'resource_owner_key')
+            resource_owner_secret = config.get('fanfou', 'resource_owner_secret')
+        except ConfigParser.NoOptionError, err:
+            resource_owner_key = ''
+            resource_owner_secret = ''
+        if resource_owner_key and resource_owner_secret:
+            exit(0)
+
+        username = raw_input("Username: ")
+        password = getpass.getpass("Password: ")
+        token = xauth(consumer_key, client_secret, username, password)
+        config.set('fanfou', 'resource_owner_key', token['oauth_token'])
+        config.set('fanfou', 'resource_owner_secret', token['oauth_secret'])
+
+    config.write(open('config.cfg', 'wb'))
