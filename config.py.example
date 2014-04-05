@@ -1,8 +1,0 @@
-# -*- coding: utf-8 -*-
-#
-# 目前仅支持饭否
-
-consumer_key = ''  # 填写从服务提供方申请到的 Consumer Key
-client_secret = '' # 填写从服务提供方申请到的 Consumer Secret
-resource_owner_key = '' # 执行 fanfou_config.py 后自动生成
-resource_owner_secret = '' # 执行 fanfou_config.py 后自动生成
