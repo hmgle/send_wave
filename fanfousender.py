@@ -3,8 +3,24 @@
 
 import fileinput
 from fanfou import Fanfou
-from config import consumer_key, client_secret
-from config import resource_owner_key, resource_owner_secret
+import ConfigParser
+
+config = ConfigParser.ConfigParser()
+with open('config.cfg', 'r') as cfgfile:
+    config.readfp(cfgfile)
+    try:
+        consumer_key = config.get('fanfou', 'consumer_key')
+        client_secret = config.get('fanfou', 'client_secret')
+        resource_owner_key = config.get('fanfou', 'resource_owner_key')
+        resource_owner_secret = config.get('fanfou', 'resource_owner_secret')
+    except ConfigParser.NoOptionError, err:
+        print "先运行fanfou_config.py"
+        exit(1)
+    if not resource_owner_secret or not resource_owner_key \
+            or not consumer_key or not client_secret:
+        print "先运行fanfou_config.py"
+        exit(1)
+
 
 if __name__ == "__main__":
     msg = ''
