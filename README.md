@@ -10,7 +10,7 @@
 
 然后用编辑器打开`config.cfg`, 根据自己申请的AppKey填写相关选项， 然后:
 
-	python config.cfg
+	python fanfou_config.py
 
 根据提示输入用户名和密码。
 
