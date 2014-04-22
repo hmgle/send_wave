@@ -1,0 +1,3 @@
+[submodule "txt2bmp"]
+	path = txt2bmp
+	url = https://github.com/hmgle/txt2bmp.git
