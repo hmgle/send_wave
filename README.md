@@ -38,7 +38,7 @@
 
 		cat input_txt | txt2bmp | convert - png:- | ./fanfouphoto.py
 
-其中的 `txt2bmp` 是一个将文本转换为bmp图片的工具，发布在: https://github.com/hmgle/txt2bmp
+	其中的 `txt2bmp` 是一个将文本转换为bmp图片的工具，发布在: https://github.com/hmgle/txt2bmp
 
 * 用 `fortune` 产生一句随机的趣话， 再用 `cowsay`
 加上一个公牛图案，作为png图片发送:
