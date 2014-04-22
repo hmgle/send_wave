@@ -31,11 +31,11 @@
 
 * 定时发送消息:
 
-	$ crontab -l # 每天8点问好
-	0 8 * * * cd send_wave_dir && (echo "每天问声好，维持下知名度。\n大家早上好.\n-芝麻" | ./fanfousender.py)
+		$ crontab -l # 每天8点问好
+		0 8 * * * cd send_wave_dir && (echo "每天问声好，维持下知名度。\n大家早上好.\n-芝麻" | ./fanfousender.py)
 
 * 直接把大段文本作为图片发送:
 
-	cat input_txt | txt2bmp | convert - png:- | ./fanfouphoto.py
+		cat input_txt | txt2bmp | convert - png:- | ./fanfouphoto.py
 
 其中的 `txt2bmp` 是一个将文本转换为bmp图片的工具，发布在: https://github.com/hmgle/txt2bmp
