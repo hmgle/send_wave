@@ -30,10 +30,10 @@
 ## Tip
 
 * 定时发送消息:
-```console
+	```console
 $ crontab -l # 每天8点问好
 0 8 * * * cd /home/send_wave_dir && (echo "每天问声好，维持下知名度。\n大家早上好.\n-芝麻" | ./fanfousender.py)
-```
+	```
 
 * 直接把大段文本作为图片发送:
 
