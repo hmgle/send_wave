@@ -2,7 +2,10 @@
 
 ## 简介
 
-一个方便命令行发送**饭否**消息的工具。
+一个方便命令行发送**饭否**或**微博**消息的工具。
+
+- 我的饭否: http://fanfou.com/hmgle
+- 我的微博: http://weibo.com/hmgle
 
 ## 配置
 
@@ -45,3 +48,4 @@ $ crontab -l # 每天8点问好
 加上一个公牛图案，作为png图片发送:
 
 		fortune | cowsay | txt2bmp | convert - png:- | ./fanfouphoto.py
+
