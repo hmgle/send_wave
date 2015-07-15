@@ -5,9 +5,11 @@ from weibo import Weibo
 import ConfigParser
 import sys
 import getopt
+from os.path import expanduser
 
+home = expanduser("~")
 config = ConfigParser.ConfigParser()
-with open('config.cfg', 'r') as cfgfile:
+with open(home + '/.send_wave/config.cfg', 'r') as cfgfile:
     config.readfp(cfgfile)
     try:
         access_token = config.get('weibo', 'access_token')

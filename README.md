@@ -9,9 +9,9 @@
 
 ## 配置
 
-	cp config.cfg.example config.cfg
+	sudo make install
 
-然后用编辑器打开`config.cfg`, 根据自己申请的AppKey填写相关选项， 然后:
+然后用编辑器打开`~/.Send_wave/config.cfg`, 根据自己申请的AppKey填写相关选项， 然后:
 
 	python fanfou_config.py
 

@@ -6,6 +6,7 @@ from requests_oauthlib import OAuth1
 from urlparse import parse_qs
 import getpass
 import ConfigParser
+from os.path import expanduser
 
 
 def xauth(consumer_key, client_secret, username, password):
@@ -23,7 +24,8 @@ def xauth(consumer_key, client_secret, username, password):
 
 if __name__ == '__main__':
     config = ConfigParser.ConfigParser()
-    with open('config.cfg', 'r') as cfgfile:
+    home = expanduser("~")
+    with open(home + '/.send_wave/config.cfg', 'r') as cfgfile:
         config.readfp(cfgfile)
         try:
             consumer_key = config.get('fanfou', 'consumer_key')
@@ -49,4 +51,4 @@ if __name__ == '__main__':
         config.set('fanfou', 'resource_owner_key', token['oauth_token'])
         config.set('fanfou', 'resource_owner_secret', token['oauth_secret'])
 
-    config.write(open('config.cfg', 'wb'))
+    config.write(open(home + '/.send_wave/config.cfg', 'wb'))

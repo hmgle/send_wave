@@ -5,9 +5,11 @@ from fanfou import Fanfou
 import sys
 import getopt
 import ConfigParser
+from os.path import expanduser
 
+home = expanduser("~")
 config = ConfigParser.ConfigParser()
-with open('config.cfg', 'r') as cfgfile:
+with open(home + '/.send_wave/config.cfg', 'r') as cfgfile:
     config.readfp(cfgfile)
     try:
         consumer_key = config.get('fanfou', 'consumer_key')

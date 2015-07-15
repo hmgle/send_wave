@@ -6,3 +6,12 @@
 [fanfou]
 consumer_key = 1234567890  # 填写从服务提供方申请到的 Consumer Key
 client_secret = 1234567890  # 填写从服务提供方申请到的 Consumer Secret
+
+[tqq]
+access_token=00000000000000000000000000000000
+oauth_consumer_key=000000000
+openid=00000000000000000000000000000000
+clientip=00.00.00.00
+
+[weibo]
+access_token = 0.000000000000000000000000000000
