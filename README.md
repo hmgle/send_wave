@@ -7,7 +7,7 @@
 - 我的饭否: http://fanfou.com/hmgle
 - 我的微博: http://weibo.com/hmgle
 
-## 配置
+## 安装配置
 
 	sudo make install
 

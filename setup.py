@@ -12,7 +12,7 @@ setup(
     ),
     license = "GPLv2",
     url = "https://github.com/hmgle/send_wave",
-    py_modules=['fanfou', 'tqq', 'weibo'],
+    py_modules = ['fanfou', 'tqq', 'weibo'],
     install_requires = requirements,
     scripts = [
         'request_token.py', 'fanfou_config.py',

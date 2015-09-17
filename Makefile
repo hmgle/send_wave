@@ -1,4 +1,5 @@
 install::
+	python setup.py install
 	mkdir -p ~/.send_wave
 	cp -p config.cfg.example ~/.send_wave/config.cfg
 	cp *.py /usr/local/bin/
